@@ -32,9 +32,10 @@ jobs:
 
       - name: Update site
         run: |
-          mkdir -p site/kernel-paniks-orchestrator || true          
-          mkdir -p site/kernel-paniks-orchestrator/${{ steps.version.outputs.app_version }}
-          cp -r result/bin/* site/kernel-paniks-orchestrator/${{ steps.version.outputs.app_version }}/
+          mkdir -p site/augustomegener || true          
+          mkdir -p site/augustomegener/kernel-paniks-orchestrator || true          
+          mkdir -p site/augustomegener/kernel-paniks-orchestrator/${{ steps.version.outputs.app_version }}
+          cp -r result/bin/* site/augustomegener/kernel-paniks-orchestrator/${{ steps.version.outputs.app_version }}/
           cd ./site
           git config user.name "augustomegener"
           git config user.email "76854495+AugustoMegener@users.noreply.github.com"
