@@ -11,6 +11,7 @@ use tonic::transport::Server;
 use transport::server::OrchestratorService;
 use greeter::orchestrator_server::OrchestratorServer;
 
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     info!("Orchestrator starting");
