@@ -4,6 +4,10 @@ jobs:
   release:
     name: Publish release binary for kernel-paniks-orchestrator
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    permissions:
+      contents: write
     if: "contains(github.event.head_commit.message, '[Publish]') || github.event_name == 'workflow_dispatch'"
     steps:
       - name: Checkout code
@@ -32,6 +36,7 @@ jobs:
 
       - name: Update site
         run: |
+          mkdir -p site/kernel-paniks-orchestrator || true          
           mkdir -p site/kernel-paniks-orchestrator/${{ steps.version.outputs.app_version }}
           cp -r result/bin/* site/kernel-paniks-orchestrator/${{ steps.version.outputs.app_version }}/
           cd ./site
