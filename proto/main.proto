@@ -4,6 +4,7 @@ package main;
 
 import "google/protobuf/empty.proto";
 
+
 service Orchestrator {
   rpc ShutdownDaemon(google.protobuf.Empty) returns (ResultResponse);
 }
