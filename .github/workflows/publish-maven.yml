@@ -24,7 +24,7 @@ jobs:
           path: site
 
       - name: Build
-        run: nix build
+        run: nix build -L
 
       - name: Get version from Cargo.toml
         id: version
