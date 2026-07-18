@@ -27,4 +27,9 @@ impl Orchestrator for OrchestratorService {
 
         Ok(Response::new(ResultResponse { is_sucess: true, message: None }))
     }
+
+    async fn ping(&self, _request: Request<()>) -> Result<Response<()>, Status> {
+
+        Ok(Response::new(()))
+    }
 }
