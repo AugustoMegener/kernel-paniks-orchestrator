@@ -35,8 +35,7 @@ jobs:
           mkdir -p site/augustomegener || true          
           mkdir -p site/augustomegener/kernel-paniks-orchestrator || true          
           mkdir -p site/augustomegener/kernel-paniks-orchestrator/${{ steps.version.outputs.app_version }}
-          cp -r result/bin/kernel-paniks-orchestrator site/augustomegener/kernel-paniks-orchestrator/${{ steps.version.outputs.app_version }}/kernel-paniks-orchestrator-${{ steps.version.outputs.app_version }}          cp -r result/bin/* site/augustomegener/kernel-paniks-orchestrator/${{ steps.version.outputs.app_version }}/*-${{ steps.version.outputs.app_version }}
-
+          cp -r result/bin/kernel-paniks-orchestrator site/augustomegener/kernel-paniks-orchestrator/${{ steps.version.outputs.app_version }}/kernel-paniks-orchestrator-${{ steps.version.outputs.app_version }}          
           cd ./site
           git config user.name "augustomegener"
           git config user.email "76854495+AugustoMegener@users.noreply.github.com"
