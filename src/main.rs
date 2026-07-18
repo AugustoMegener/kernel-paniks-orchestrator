@@ -1,5 +1,8 @@
 use tokio::sync::oneshot;
 use tracing::info;
+use tonic::transport::Server;
+use transport::server::OrchestratorService;
+use greeter::orchestrator_server::OrchestratorServer;
 
 mod transport;
 
@@ -7,9 +10,6 @@ pub mod greeter {
     tonic::include_proto!("main");
 }
 
-use tonic::transport::Server;
-use transport::server::OrchestratorService;
-use greeter::orchestrator_server::OrchestratorServer;
 
 
 #[tokio::main]
