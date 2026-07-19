@@ -19,15 +19,26 @@
           fenix.packages.${system}.targets.${target}.stable.rust-std
         ];
         craneLib = (crane.mkLib pkgs).overrideToolchain toolchain;
+        meta = builtins.fromTOML (builtins.readFile "${self}/meta.toml");
 
-        protoFilter = path: _type: builtins.match ".*\\.proto$" path != null;
-        srcFilter = path: type:
-          (protoFilter path type) || (craneLib.filterCargoSources path type);
+        protoTarball = pkgs.fetchurl (let
+          version = meta.proto.version;
+          hash = meta.proto.hash;
+        in {
+          url = "https://augustomegener.github.io/kernel-paniks-proto/augustomegener/kernel-paniks-proto/${version}/kernel-paniks-proto-${version}.tar";
+          sha256 = hash;
+        });
 
-        src = pkgs.lib.cleanSourceWith {
+        rustSrc = pkgs.lib.cleanSourceWith {
           src = craneLib.path ./.;
-          filter = srcFilter;
+          filter = craneLib.filterCargoSources;
         };
+
+        src = pkgs.runCommand "orchestrator-src" { } ''
+          mkdir -p $out
+          cp -r ${rustSrc}/. $out/
+          tar -xf ${protoTarball} -C $out
+        '';
 
         commonArgs = {
           inherit src;

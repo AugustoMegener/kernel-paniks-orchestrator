@@ -17,15 +17,14 @@ impl OrchestratorService {
 
 #[tonic::async_trait]
 impl Orchestrator for OrchestratorService {
-    async fn shutdown_daemon(
-        &self,
-        _request: Request<()>,
-    ) -> Result<Response<ResultResponse>, Status> {
+    async fn shutdown_daemon(&self, _request: Request<()>) -> Result<Response<ResultResponse>, Status> {
+
         if let Some(tx) = self.shutdown_tx.lock().unwrap().take() {
             let _ = tx.send(());
+            return Ok(Response::new(ResultResponse { is_sucess: true, message: None }));
         }
 
-        Ok(Response::new(ResultResponse { is_sucess: true, message: None }))
+        Ok(Response::new(ResultResponse { is_sucess: false, message: Some("Could not shutdown daemon".to_string()) }))
     }
 
     async fn ping(&self, _request: Request<()>) -> Result<Response<()>, Status> {
